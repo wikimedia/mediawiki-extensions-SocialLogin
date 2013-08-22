@@ -1,4 +1,4 @@
-<?
+<?php
 class facebook_com implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgFacebookSecret, $wgFacebookAppId;

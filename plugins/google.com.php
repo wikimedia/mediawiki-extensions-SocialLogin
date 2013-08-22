@@ -1,4 +1,4 @@
-<?
+<?php
 class google_com implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgGoogleSecret, $wgGoogleAppId;

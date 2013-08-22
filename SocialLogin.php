@@ -1,4 +1,4 @@
-<?
+<?php
 if (!defined('MEDIAWIKI')) die('Not an entry point.');
 $wgExtensionCredits['specialpage'][] = array(
         'name' => 'SocialLogin',

@@ -1,4 +1,4 @@
-<?
+<?php
 class vk_com implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgVkSecret, $wgVkAppId;

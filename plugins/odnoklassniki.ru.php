@@ -1,4 +1,4 @@
-<?
+<?php
 class odnoklassniki_ru implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgOdnoklassnikiSecret, $wgOdnoklassnikiAppId, $wgOdnoklassnikiPublic;

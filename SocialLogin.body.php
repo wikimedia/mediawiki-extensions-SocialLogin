@@ -1,4 +1,4 @@
-<?
+<?php
 interface SocialLoginPlugin {
 	public static function login( $code );
 	public static function check( $id, $access_token );

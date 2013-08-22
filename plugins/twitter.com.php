@@ -1,4 +1,4 @@
-<?
+<?php
 class twitter_com implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgTwitterSecret, $wgTwitterAppId;
