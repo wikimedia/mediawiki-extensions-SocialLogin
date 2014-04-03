@@ -6,7 +6,7 @@ $wgExtensionCredits['specialpage'][] = array(
         'author' => 'Luft-on',
         'url' => 'http://www.mediawiki.org/wiki/Extension:SocialLogin',
         'descriptionmsg' => 'sl-desc',
-        'version' => '0.10.0',
+        'version' => '0.11.0',
 );
 
 $dir = dirname(__FILE__) . '/';
@@ -19,5 +19,5 @@ foreach ($wgSocialLoginServices as $key => $value) {
 
 $wgMessagesDirs['SocialLogin'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['SocialLogin'] = $dir . 'SocialLogin.i18n.php';
-$wgExtensionAliasesFiles['SocialLoginAlias'] = $dir . 'SocialLogin.alias.php';
+$wgExtensionMessagesFiles['SocialLoginAlias'] = $dir . 'SocialLogin.alias.php';
 $wgSpecialPages['sociallogin'] = 'SocialLogin'; # Сообщите MediaWiki о Вашей новой спецстранице.
