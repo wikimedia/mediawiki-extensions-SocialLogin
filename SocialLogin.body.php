@@ -184,7 +184,7 @@ class SocialLogin extends SpecialPage {
 				$error = "";
 				if (!User::isValidUserName($name)) $error .= "<li>" . wfMsg('sl-invalid-name', $name) . "</li>";
 				if (SocialLogin::userExist($name)) $error .= "<li>" . wfMsg('sl-user-exist', $name) . "</li>";
-				if (!User::isValidEmailAddr($email)) $error .= "<li>" . wfMsg('sl-invalid-email', $email) . "</li>";
+				if (!Sanitizer::validateEmail($email)) $error .= "<li>" . wfMsg('sl-invalid-email', $email) . "</li>";
 				if ($this->emailExist($email)) $error .= "<li>" . wfMsg('sl-email-exist', $name) . "</li>";
 				//Note: Добавить проверку на валидность пароля
 				if (!$pass1) $error .= "<li>" . wfMsg('sl-invalid-password') . "</li>";
@@ -255,7 +255,7 @@ class SocialLogin extends SpecialPage {
 					if (!$id) $error .= "<li>" . wfMsg('sl-missing-param', 'id') . "</li>";
 					if (!User::isValidUserName($name)) $error .= "<li>" . wfMsg('sl-invalid-name', $name) . "</li>";
 					if (SocialLogin::userExist($name)) $error .= "<li>" . wfMsg('sl-user-exist', $name) . "</li>";
-					if (!User::isValidEmailAddr($email)) $error .= "<li>" . wfMsg('sl-invalid-email', $email) . "</li>";
+					if (!Sanitizer::validateEmail($email)) $error .= "<li>" . wfMsg('sl-invalid-email', $email) . "</li>";
 					if ($this->emailExist($email)) $error .= "<li>" . wfMsg('sl-email-exist', $name) . "</li>";
 					//Note: Добавить проверку на валидность пароля
 					if (!$pass1) $error .= "<li>" . wfMsg('sl-invalid-password') . "</li>";
