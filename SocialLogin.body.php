@@ -23,7 +23,6 @@ class SocialLogin extends SpecialPage {
 		global $wgHooks;
 		parent::__construct('SocialLogin');
 		$wgHooks['UserLoadAfterLoadFromSession'][] = $this;
-		wfLoadExtensionMessages('SocialLogin');
 	}
 
 	static function getContents( $url, $data = false ) {
