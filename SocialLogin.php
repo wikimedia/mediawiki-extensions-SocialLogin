@@ -12,6 +12,7 @@ $wgExtensionCredits['specialpage'][] = array(
 $dir = dirname(__FILE__) . '/';
 
 $wgAutoloadClasses['SocialLogin'] = $dir . 'SocialLogin.body.php'; # Попросите MediaWiki загрузить тело основного файла.
+$wgAutoloadClasses['SocialLoginPlugin'] = $dir . 'SocialLogin.body.php';
 foreach ($wgSocialLoginServices as $key => $value) {
 	$name = str_replace('.', '_', $key);
 	$wgAutoloadClasses[$name] = $dir . "/plugins/$key.php";
