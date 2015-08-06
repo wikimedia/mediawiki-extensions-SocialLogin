@@ -170,7 +170,7 @@ class SocialLogin extends SpecialPage {
 					$user->loadFromId();
 					$user->setCookies();
 					$user->saveSettings();
-					wfRunHooks('UserLoginComplete', array(&$user, $this));
+					Hooks::run('UserLoginComplete', array(&$user, $this));
 					$wgOut->addHTML(wfMsg('sl-login-success'));
 				}
 				break;
@@ -202,7 +202,7 @@ class SocialLogin extends SpecialPage {
 					$user->loadFromId();
 					$user->setCookies();
 					$user->saveSettings();
-					wfRunHooks('UserLoginComplete', array(&$user, $this));
+					Hooks::run('UserLoginComplete', array(&$user, $this));
 					$wgOut->addHTML(wfMsg('sl-login-success'));
 				}
 				break;
@@ -220,7 +220,7 @@ class SocialLogin extends SpecialPage {
 					$user->loadFromId();
 					$user->setCookies();
 					$user->saveSettings();
-					wfRunHooks('UserLoginComplete', array(&$user, $this));
+					Hooks::run('UserLoginComplete', array(&$user, $this));
 					$wgOut->addHTML(wfMsg('sl-login-success'));
 				} else {
 					if ($user->isLoggedIn()) {
@@ -274,7 +274,7 @@ class SocialLogin extends SpecialPage {
 						$user->loadFromId();
 						$user->setCookies();
 						$user->saveSettings();
-						wfRunHooks('UserLoginComplete', array(&$user, $this));
+						Hooks::run('UserLoginComplete', array(&$user, $this));
 						$dbr = wfGetDB(DB_MASTER);
 						$res = $dbr->insert('sociallogin', array(
 							"user_id" => $newUser->getId(),
@@ -310,7 +310,7 @@ class SocialLogin extends SpecialPage {
 						$user->loadFromId();
 						$user->setCookies();
 						$user->saveSettings();
-						wfRunHooks('UserLoginComplete', array(&$user, $this));
+						Hooks::run('UserLoginComplete', array(&$user, $this));
 						$dbr = wfGetDB(DB_MASTER);
 						$res = $dbr->insert('sociallogin', array(
 							"user_id" => $newUser->getId(),
