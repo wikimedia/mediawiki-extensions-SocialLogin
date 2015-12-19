@@ -109,7 +109,6 @@ class SocialLogin extends SpecialPage {
 		$action = $wgRequest->getText('action', 'auth');
 		switch ($action) {
 			case "auth":
-				$wgOut->includeJQuery();
 				$wgOut->addHTML("<table style='width: 100%'><tr>");
 				$w = 100 / count($wgSocialLoginServices);
 				$accounts = array();
