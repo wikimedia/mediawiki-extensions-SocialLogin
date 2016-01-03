@@ -125,7 +125,7 @@ class SocialLogin extends SpecialPage {
 					foreach ($res as $row) {
 						$s = explode('@', $row->profile);
 						$s = $s[1];
-						$accounts[$s] .= "<p id='" . preg_replace("/[@\.]/i", "_", $row->profile) . "'>" . $row->full_name . " <a href=\"javascript:unlink('" . $row->profile . "')\">(" . wfMsg('sl-unlink') . ")</a></p>";
+						$accounts[$s] .= "<p id='" . preg_replace("/[@\.]/i", "_", $row->profile) . "'>" . $row->full_name . " <a href=\"javascript:unlink('" . $row->profile . "')\">(" . $this->msg('sl-unlink')->escaped() . ")</a></p>";
 					}
 					foreach ($wgSocialLoginServices as $key => $name) {
 						$wgOut->addHTML("<td>" . $accounts[$key] . "</td>");
@@ -152,16 +152,16 @@ class SocialLogin extends SpecialPage {
 				}
 				$scripts .= "});";
 				$wgOut->addHeadItem('Login scripts', "<script type='text/javascript'>$scripts</script>");
-				if ($wgSocialLoginAddForms && !$user->isLoggedIn()) $wgOut->addHTML(wfMsg('sl-login-register'));
+				if ($wgSocialLoginAddForms && !$user->isLoggedIn()) $wgOut->addHTML($this->msg('sl-login-register')->escaped());
 				break;
 			case "signin":
 				$name = $wgContLang->ucfirst($wgRequest->getText('name'));
 				$pass = $wgRequest->getText('pass');
 				$error = "";
-				if (!User::isValidUserName($name)) $error .= "<li>" . wfMsg('sl-invalid-name', $name) . "</li>";
-				if (!SocialLogin::userExist($name)) $error .= "<li>" . wfMsg('sl-user-not-exist', $name) . "</li>";
+				if (!User::isValidUserName($name)) $error .= "<li>" . $this->msg('sl-invalid-name', $name)->escaped() . "</li>";
+				if (!SocialLogin::userExist($name)) $error .= "<li>" . $this->msg('sl-user-not-exist', $name)->escaped() . "</li>";
 				$newUser = User::newFromName($name);
-				if (!$newUser->isValidPassword($pass)) $error .= "<li>" . wfMsg('sl-invalid-password') . "</li>";
+				if (!$newUser->isValidPassword($pass)) $error .= "<li>" . $this->msg('sl-invalid-password')->escaped() . "</li>";
 				if ($error) {
 					$wgOut->addHTML("<ul class='error'>$error</ul>");
 				} else {
@@ -170,7 +170,7 @@ class SocialLogin extends SpecialPage {
 					$user->setCookies();
 					$user->saveSettings();
 					Hooks::run('UserLoginComplete', array(&$user, $this));
-					$wgOut->addHTML(wfMsg('sl-login-success'));
+					$wgOut->addHTML($this->msg('sl-login-success')->escaped());
 				}
 				break;
 			case "signup":
@@ -180,13 +180,13 @@ class SocialLogin extends SpecialPage {
 				$pass1 = $wgRequest->getText('pass');
 				$pass2 = $wgRequest->getText('pass_confirm');
 				$error = "";
-				if (!User::isValidUserName($name)) $error .= "<li>" . wfMsg('sl-invalid-name', $name) . "</li>";
-				if (SocialLogin::userExist($name)) $error .= "<li>" . wfMsg('sl-user-exist', $name) . "</li>";
-				if (!Sanitizer::validateEmail($email)) $error .= "<li>" . wfMsg('sl-invalid-email', $email) . "</li>";
-				if ($this->emailExist($email)) $error .= "<li>" . wfMsg('sl-email-exist', $name) . "</li>";
+				if (!User::isValidUserName($name)) $error .= "<li>" . $this->msg('sl-invalid-name', $name)->escaped() . "</li>";
+				if (SocialLogin::userExist($name)) $error .= "<li>" . $this->msg('sl-user-exist', $name)->escaped() . "</li>";
+				if (!Sanitizer::validateEmail($email)) $error .= "<li>" . $this->msg('sl-invalid-email', $email)->escaped() . "</li>";
+				if ($this->emailExist($email)) $error .= "<li>" . $this->msg('sl-email-exist', $name)->escaped() . "</li>";
 				//Note: Добавить проверку на валидность пароля
-				if (!$pass1) $error .= "<li>" . wfMsg('sl-invalid-password') . "</li>";
-				if ($pass1 != $pass2) $error .= "<li>" . wfMsg('sl-passwords-not-equal') . "</li>";
+				if (!$pass1) $error .= "<li>" . $this->msg('sl-invalid-password')->escaped() . "</li>";
+				if ($pass1 != $pass2) $error .= "<li>" . $this->msg('sl-passwords-not-equal')->escaped() . "</li>";
 				if ($error) {
 					$wgOut->addHTML("<ul class='error'>$error</ul>");
 				} else {
@@ -202,7 +202,7 @@ class SocialLogin extends SpecialPage {
 					$user->setCookies();
 					$user->saveSettings();
 					Hooks::run('UserLoginComplete', array(&$user, $this));
-					$wgOut->addHTML(wfMsg('sl-login-success'));
+					$wgOut->addHTML($this->msg('sl-login-success')->escaped());
 				}
 				break;
 			case "login":
@@ -220,7 +220,7 @@ class SocialLogin extends SpecialPage {
 					$user->setCookies();
 					$user->saveSettings();
 					Hooks::run('UserLoginComplete', array(&$user, $this));
-					$wgOut->addHTML(wfMsg('sl-login-success'));
+					$wgOut->addHTML($this->msg('sl-login-success')->escaped());
 				} else {
 					if ($user->isLoggedIn()) {
 						$dbr = wfGetDB(DB_MASTER);
@@ -229,9 +229,9 @@ class SocialLogin extends SpecialPage {
 							"profile" => $auth["profile"],
 							"full_name" => $auth["realname"]
 						));
-						$wgOut->addHTML(wfMsg('sl-account-connected', $auth["realname"], $wgSocialLoginServices[$service]));
+						$wgOut->addHTML($this->msg('sl-account-connected', $auth["realname"], $wgSocialLoginServices[$service])->escaped());
 					} else {
-						$wgOut->addHTML(wfMsg('sl-sign-forms', $auth["access_token"], $auth["service"], $auth["id"], $auth["name"], $auth["realname"], $auth["email"]));
+						$wgOut->addHTML($this->msg('sl-sign-forms', $auth["access_token"], $auth["service"], $auth["id"], $auth["name"], $auth["realname"], $auth["email"])->escaped());
 					}
 				}
 				break;
@@ -245,22 +245,22 @@ class SocialLogin extends SpecialPage {
 				$pass1 = $wgRequest->getText('pass');
 				$pass2 = $wgRequest->getText('pass_confirm');
 				$auth = call_user_func(array(str_replace(".", "_", $service), "check"), $id, $access_token);
-				if (!$auth) $wgOut->addHTML(wfMsg('sl-hacking'));
+				if (!$auth) $wgOut->addHTML($this->msg('sl-hacking')->escaped());
 				else {
 					$error = "";
-					if (!$access_token) $error .= "<li>" . wfMsg('sl-missing-param', 'access_token') . "</li>";
-					if (!$service) $error .= "<li>" . wfMsg('sl-missing-param', 'service') . "</li>";
-					if (!$id) $error .= "<li>" . wfMsg('sl-missing-param', 'id') . "</li>";
-					if (!User::isValidUserName($name)) $error .= "<li>" . wfMsg('sl-invalid-name', $name) . "</li>";
-					if (SocialLogin::userExist($name)) $error .= "<li>" . wfMsg('sl-user-exist', $name) . "</li>";
-					if (!Sanitizer::validateEmail($email)) $error .= "<li>" . wfMsg('sl-invalid-email', $email) . "</li>";
-					if ($this->emailExist($email)) $error .= "<li>" . wfMsg('sl-email-exist', $name) . "</li>";
+					if (!$access_token) $error .= "<li>" . $this->msg('sl-missing-param', 'access_token')->escaped() . "</li>";
+					if (!$service) $error .= "<li>" . $this->msg('sl-missing-param', 'service')->escaped() . "</li>";
+					if (!$id) $error .= "<li>" . $this->msg('sl-missing-param', 'id')->escaped() . "</li>";
+					if (!User::isValidUserName($name)) $error .= "<li>" . $this->msg('sl-invalid-name', $name)->escaped() . "</li>";
+					if (SocialLogin::userExist($name)) $error .= "<li>" . $this->msg('sl-user-exist', $name)->escaped() . "</li>";
+					if (!Sanitizer::validateEmail($email)) $error .= "<li>" . $this->msg('sl-invalid-email', $email)->escaped() . "</li>";
+					if ($this->emailExist($email)) $error .= "<li>" . $this->msg('sl-email-exist', $name)->escaped() . "</li>";
 					//Note: Добавить проверку на валидность пароля
-					if (!$pass1) $error .= "<li>" . wfMsg('sl-invalid-password') . "</li>";
-					if ($pass1 != $pass2) $error .= "<li>" . wfMsg('sl-passwords-not-equal') . "</li>";
+					if (!$pass1) $error .= "<li>" . $this->msg('sl-invalid-password')->escaped() . "</li>";
+					if ($pass1 != $pass2) $error .= "<li>" . $this->msg('sl-passwords-not-equal')->escaped() . "</li>";
 					if ($error) {
 						$wgOut->addHTML("<ul class='error'>$error</ul>");
-						$wgOut->addHTML(wfMsg('sl-sign-forms', $access_token, $service, $id, $name, $realname, $email));
+						$wgOut->addHTML($this->msg('sl-sign-forms', $access_token, $service, $id, $name, $realname, $email)->escaped());
 					} else {
 						$newUser = User::createNew($name, array(
 							'email' => $email,
@@ -280,7 +280,7 @@ class SocialLogin extends SpecialPage {
 							"profile" => $auth["profile"],
 							"full_name" => $auth["realname"]
 						));
-						$wgOut->addHTML(wfMsg('sl-login-success'));
+						$wgOut->addHTML($this->msg('sl-login-success')->escaped());
 					}
 				}
 				break;
@@ -291,19 +291,19 @@ class SocialLogin extends SpecialPage {
 				$name = $wgContLang->ucfirst($wgRequest->getText('name'));
 				$pass = $wgRequest->getText('pass');
 				$auth = call_user_func(array(str_replace(".", "_", $service), "check"), $id, $access_token);
-				if (!$auth) $wgOut->addHTML(wfMsg('sl-hacking'));
+				if (!$auth) $wgOut->addHTML($this->msg('sl-hacking')->escaped());
 				else {
 					$error = "";
-					if (!$access_token) $error .= "<li>" . wfMsg('sl-missing-param', 'access_token') . "</li>";
-					if (!$service) $error .= "<li>" . wfMsg('sl-missing-param', 'service') . "</li>";
-					if (!$id) $error .= "<li>" . wfMsg('sl-missing-param', 'id') . "</li>";
-					if (!User::isValidUserName($name)) $error .= "<li>" . wfMsg('sl-invalid-name', $name) . "</li>";
-					if (!SocialLogin::userExist($name)) $error .= "<li>" . wfMsg('sl-user-not-exist', $name) . "</li>";
+					if (!$access_token) $error .= "<li>" . $this->msg('sl-missing-param', 'access_token')->escaped() . "</li>";
+					if (!$service) $error .= "<li>" . $this->msg('sl-missing-param', 'service')->escaped() . "</li>";
+					if (!$id) $error .= "<li>" . $this->msg('sl-missing-param', 'id')->escaped() . "</li>";
+					if (!User::isValidUserName($name)) $error .= "<li>" . $this->msg('sl-invalid-name', $name)->escaped() . "</li>";
+					if (!SocialLogin::userExist($name)) $error .= "<li>" . $this->msg('sl-user-not-exist', $name)->escaped() . "</li>";
 					$newUser = User::newFromName($name);
-					if (!$newUser->isValidPassword($pass)) $error .= "<li>" . wfMsg('sl-invalid-password') . "</li>";
+					if (!$newUser->isValidPassword($pass)) $error .= "<li>" . $this->msg('sl-invalid-password')->escaped() . "</li>";
 					if ($error) {
 						$wgOut->addHTML("<ul class='error'>$error</ul>");
-						$wgOut->addHTML(wfMsg('sl-sign-forms', $access_token, $service, $id, $name, '', ''));
+						$wgOut->addHTML($this->msg('sl-sign-forms', $access_token, $service, $id, $name, '', '')->escaped());
 					} else {
 						$user->setId($newUser->getId());
 						$user->loadFromId();
@@ -316,7 +316,7 @@ class SocialLogin extends SpecialPage {
 							"profile" => $auth["profile"],
 							"full_name" => $auth["realname"]
 						));
-						$wgOut->addHTML(wfMsg('sl-account-connected', $auth["realname"], $wgSocialLoginServices[$service]));
+						$wgOut->addHTML($this->msg('sl-account-connected', $auth["realname"], $wgSocialLoginServices[$service])->escaped());
 					}
 				}
 				break;
