@@ -193,7 +193,7 @@ class SocialLogin extends SpecialPage {
 					$newUser = User::createNew($name, array(
 						'email' => $email,
 						'real_name' => $realname,
-						'token' => User::generateToken()
+						'token' => MWCryptRand::generateHex( 32 )
 					));
 					$newUser->setInternalPassword($pass1);
 					$newUser->saveSettings();
@@ -265,7 +265,7 @@ class SocialLogin extends SpecialPage {
 						$newUser = User::createNew($name, array(
 							'email' => $email,
 							'real_name' => $realname,
-							'token' => User::generateToken()
+							'token' => MWCryptRand::generateHex( 32 )
 						));
 						$newUser->setInternalPassword($pass1);
 						$newUser->saveSettings();
