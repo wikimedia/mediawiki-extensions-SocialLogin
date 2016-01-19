@@ -1,3 +1,4 @@
+/*jshint unused:false */
 function openWindow(url, title, width, height) {
 	var left = (screen.width - width) / 2;
 	var top = (screen.height - height) / 2;
@@ -5,12 +6,15 @@ function openWindow(url, title, width, height) {
 }
 
 function unlink(profile) {
-	$.ajax({
+	jQuery.ajax({
 		url: '/Special:SocialLogin',
 		data: {action: 'unlink', profile: profile},
 		success: function(response) {
-			if (response == 'yes') $('#' + profile.replace('@', '_').replace('.', '_')).remove();
-			else alert('Не удалось отсоединить профиль социальной сети.');
+			if (response === 'yes') {
+				jQuery('#' + profile.replace('@', '_').replace('.', '_')).remove();
+			} else {
+				window.alert('Не удалось отсоединить профиль социальной сети.');
+			}
 		}
 	});
 }
@@ -20,22 +24,22 @@ function gup(url, name) {
 	var regexS = "[\\#&]"+name+"=([^&#]*)";
 	var regex = new RegExp( regexS );
 	var results = regex.exec( url );
-	return (results == null)?"":results[1];
+	return (results === null)?"":results[1];
 }
 
 function tryLogin(data, cb) {
 	var formText = '<form action="" method="post"><input type="hidden" name="action" value="login" />';
-	$.each(data, function(key, value) { 
+	jQuery.each(data, function(key, value) {
 		formText += '<input type="hidden" name="' + key + '" value="' + value + '" />';
 	});
 	formText += '</form>';
-	var form = $(formText);
-	$('body').append(form);
-	$(form).submit();
+	var form = jQuery(formText);
+	jQuery('body').append(form);
+	jQuery(form).submit();
 }
 
 function hacking() {
-	alert('Что-то не так! Возможно вы не тот, за кого себя выдаёте, ай-ай-ай!');
+	window.alert('Что-то не так! Возможно вы не тот, за кого себя выдаёте, ай-ай-ай!');
 }
 
 function login(url, cb) {
