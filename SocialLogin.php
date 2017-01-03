@@ -4,7 +4,7 @@ if (!defined('MEDIAWIKI')) die('Not an entry point.');
 $wgExtensionCredits['specialpage'][] = array(
         'name' => 'SocialLogin',
         'author' => 'Luft-on',
-        'url' => 'http://www.mediawiki.org/wiki/Extension:SocialLogin',
+        'url' => 'https://www.mediawiki.org/wiki/Extension:SocialLogin',
         'descriptionmsg' => 'sl-desc',
         'version' => '0.11.0',
 );
