@@ -1,0 +1,19 @@
+{
+	"@metadata": {},
+	"sl": "{{name}}",
+	"sl-desc": "{{desc|name=SocialLogin|url=https://www.mediawiki.org/wiki/Extension:SocialLogin}}",
+	"sl-unlink": "A button text",
+	"sl-login-success": "A success message",
+	"sl-account-connected": "A success message",
+	"sl-sign-forms": "{{ignore}}",
+	"sl-login-register": "{{ignore}}",
+	"sl-hacking": "An error message",
+	"sl-invalid-password": "An error message",
+	"sl-passwords-not-equal": "An error message",
+	"sl-user-exist": "An error message",
+	"sl-email-exist": "An error message",
+	"sl-user-not-exist": "An error message",
+	"sl-invalid-name": "An error message",
+	"sl-invalid-email": "An error message",
+	"sl-missing-param": "An error message"
+}
