@@ -19,6 +19,5 @@ foreach ($wgSocialLoginServices as $key => $value) {
 }
 
 $wgMessagesDirs['SocialLogin'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['SocialLogin'] = $dir . 'SocialLogin.i18n.php';
 $wgExtensionMessagesFiles['SocialLoginAlias'] = $dir . 'SocialLogin.alias.php';
 $wgSpecialPages['SocialLogin'] = 'SocialLogin'; # Сообщите MediaWiki о Вашей новой спецстранице.
