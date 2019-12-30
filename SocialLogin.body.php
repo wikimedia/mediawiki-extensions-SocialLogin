@@ -339,7 +339,7 @@ class SocialLogin extends SpecialPage {
 	}
 
 	function execute( $par ) {
-		global $wgRequest, $wgOut, $wgUser;
+		global $wgRequest, $wgOut;
 		$wgOut->addHeadItem('Zocial Styles', "<link type='text/css' href='/extensions/SocialLogin/css/style.css' rel='stylesheet' />");
 		$this->setHeaders();
 	}
