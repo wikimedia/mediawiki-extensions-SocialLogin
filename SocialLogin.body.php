@@ -103,9 +103,8 @@ class SocialLogin extends SpecialPage {
 
 	function onUserLoadAfterLoadFromSession( $user ) {
 		global $wgRequest, $wgOut, $wgContLang, $wgSocialLoginServices, $wgSocialLoginAddForms;
-		if (session_id() == '') {
-			wfSetupSession();
-		}
+
+		$wgRequest->getSession()->persist();
 		$action = $wgRequest->getText('action', 'auth');
 		switch ($action) {
 			case "auth":
