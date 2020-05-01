@@ -1,13 +1,13 @@
 <?php
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'SocialLogin' => array('SocialLogin'),
-);
+$specialPageAliases['en'] = [
+	'SocialLogin' => [ 'SocialLogin' ],
+];
 
 /** Russian */
-$specialPageAliases['ru'] = array(
-	'SocialLogin' => array('Социальная_авторизация'),
-);
+$specialPageAliases['ru'] = [
+	'SocialLogin' => [ 'Социальная_авторизация' ],
+];
