@@ -109,7 +109,7 @@ class SocialLogin extends SpecialPage {
 		switch ($action) {
 			case "auth":
 				$wgOut->addHTML("<table style='width: 100%'><tr>");
-				$w = 100 / count($wgSocialLoginServices);
+				$w = 100 / (count($wgSocialLoginServices) || 1);
 				$accounts = array();
 				foreach ($wgSocialLoginServices as $key => $name) {
 					$accounts[$key] = '';
