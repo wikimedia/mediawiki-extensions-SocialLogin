@@ -36,14 +36,14 @@ class twitter_com implements SocialLoginPlugin {
 		$r = SLgetContents( "https://www.googleapis.com/oauth2/v1/userinfo?access_token=$access_token" );
 		$response = json_decode( $r );
 		if ( !isset( $response->id ) || $response->id != $id ) { return false;
-  } else { return [
+		} else { return [
 			"id" => $id,
 			"service" => "google.com",
 			"profile" => "$id@google.com",
 			"realname" => $response->family_name . " " . $response->given_name,
 			"access_token" => $access_token
 		];
-  }
+		}
 	}
 
 	public static function loginUrl() {

@@ -30,14 +30,14 @@ class facebook_com implements SocialLoginPlugin {
 		$r = SLgetContents( "https://graph.facebook.com/me?fields=id,first_name,last_name&access_token=$access_token" );
 		$response = json_decode( $r );
 		if ( !isset( $response->id ) || $response->id != $id ) { return false;
-  } else { return [
+		} else { return [
 			"id" => $id,
 			"service" => "facebook.com",
 			"profile" => "$id@facebook.com",
 			"realname" => $response->last_name . " " . $response->first_name,
 			"access_token" => $access_token
 		];
-  }
+		}
 	}
 
 	public static function loginUrl() {

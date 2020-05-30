@@ -37,14 +37,14 @@ class odnoklassniki_ru implements SocialLoginPlugin {
 		$r = SLgetContents( "http://api.odnoklassniki.ru/fb.do?application_key=$wgOdnoklassnikiPublic&sig=$sig&client_id=$wgOdnoklassnikiAppId&method=users.getCurrentUser&access_token=$access_token" );
 		$response = json_decode( $r );
 		if ( !isset( $response->uid ) || $response->uid != $id ) { return false;
-  } else { return [
+		} else { return [
 			"id" => $id,
 			"service" => "odnoklassniki.ru",
 			"profile" => "$id@odnoklassniki.ru",
 			"realname" => $response->last_name . " " . $response->first_name,
 			"access_token" => $access_token
 		];
-  }
+		}
 	}
 
 	public static function loginUrl() {

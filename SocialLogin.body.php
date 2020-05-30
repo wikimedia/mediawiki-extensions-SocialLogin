@@ -262,7 +262,7 @@ class SocialLogin extends SpecialPage {
 				$pass2 = $wgRequest->getText( 'pass_confirm' );
 				$auth = call_user_func( [ str_replace( ".", "_", $service ), "check" ], $id, $access_token );
 				if ( !$auth ) { $wgOut->addHTML( $this->msg( 'sl-hacking' )->escaped() );
-	   } else {
+				} else {
 					$error = "";
 					if ( !$access_token ) { $error .= "<li>" . $this->msg( 'sl-missing-param', 'access_token' )->escaped() . "</li>";
 					}
@@ -307,7 +307,7 @@ class SocialLogin extends SpecialPage {
 						] );
 						$wgOut->addHTML( $this->msg( 'sl-login-success' )->escaped() );
 					}
-	   }
+				}
 				break;
 			case "connect":
 				$access_token = $wgRequest->getText( 'access_token' );
@@ -317,7 +317,7 @@ class SocialLogin extends SpecialPage {
 				$pass = $wgRequest->getText( 'pass' );
 				$auth = call_user_func( [ str_replace( ".", "_", $service ), "check" ], $id, $access_token );
 				if ( !$auth ) { $wgOut->addHTML( $this->msg( 'sl-hacking' )->escaped() );
-	   } else {
+				} else {
 					$error = "";
 					if ( !$access_token ) { $error .= "<li>" . $this->msg( 'sl-missing-param', 'access_token' )->escaped() . "</li>";
 					}
@@ -349,11 +349,11 @@ class SocialLogin extends SpecialPage {
 						] );
 						$wgOut->addHTML( $this->msg( 'sl-account-connected', $auth["realname"], $wgSocialLoginServices[$service] )->escaped() );
 					}
-	   }
+				}
 				break;
 			case 'unlink':
 				if ( !$user->isLoggedIn() ) { exit( 'no' );
-	   } else {
+				} else {
 					$profile = $wgRequest->getText( 'profile' );
 					$dbr = wfGetDB( DB_MASTER );
 					$res = $dbr->selectRow( 'sociallogin', [ 'user_id' ], [ 'profile' => $profile ], __METHOD__ );
@@ -364,7 +364,7 @@ class SocialLogin extends SpecialPage {
 						exit( 'yes' );
 					} else { exit( 'no' );
 					}
-	   }
+				}
 				break;
 		}
 		return true;
