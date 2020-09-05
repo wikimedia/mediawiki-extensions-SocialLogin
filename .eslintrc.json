@@ -1,0 +1,20 @@
+{
+	"root": true,
+	"extends": [
+		"wikimedia/client",
+		"wikimedia/jquery"
+	],
+	"rules": {
+		"vars-on-top": "warn",
+		"one-var": "warn",
+		"no-undef": "warn",
+		"no-unused-vars": "warn",
+		"no-jquery/no-each-util": "warn",
+		"no-jquery/no-global-selector": "warn",
+		"no-jquery/variable-pattern": "warn",
+		"no-alert": "warn",
+		"no-implicit-globals": "warn",
+		"no-useless-escape": "warn",
+		"no-shadow": "warn"
+	}
+}
