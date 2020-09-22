@@ -1,11 +1,15 @@
 <?php
 class vk_com implements SocialLoginPlugin {
+	/**
+	 * @inheritDoc
+	 */
 	public static function login( $code ) {
 		global $wgVkSecret, $wgVkAppId;
 		$host = $_SERVER["SERVER_NAME"];
 		$r = SLgetContents( "https://oauth.vk.com/access_token?redirect_uri=http://$host/Special:SocialLogin?service=vk.com&client_id=$wgVkAppId&client_secret=$wgVkSecret&code=$code" );
 		$response = json_decode( $r );
-		if ( !isset( $response->access_token ) ) { return false;
+		if ( !isset( $response->access_token ) ) {
+			return false;
 		}
 		$access_token = $response->access_token;
 		$id = $response->user_id;
@@ -25,11 +29,15 @@ class vk_com implements SocialLoginPlugin {
 		];
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public static function check( $id, $access_token ) {
 		$r = SLgetContents( "https://api.vk.com/method/getUserInfo?access_token=$access_token" );
 		$response = json_decode( $r );
-		// $response = $response->response;
-		if ( !( $response = $response->response ) || !isset( $response->user_id ) || $response->user_id != $id ) { return false;
+		$response = $response->response;
+		if ( !$response || !isset( $response->user_id ) || $response->user_id != $id ) {
+			return false;
 		}
 		$r = SLgetContents( "https://api.vk.com/method/users.get?uid=" . $response->user_id . "&fields=first_name,last_name&access_token=$access_token" );
 		$response = json_decode( $r );
@@ -43,6 +51,9 @@ class vk_com implements SocialLoginPlugin {
 		];
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public static function loginUrl() {
 		global $wgVkAppId;
 		$host = $_SERVER["SERVER_NAME"];
