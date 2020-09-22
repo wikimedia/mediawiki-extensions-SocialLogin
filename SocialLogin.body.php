@@ -178,11 +178,13 @@ class SocialLogin extends SpecialPage {
 				$wgOut->addHeadItem( 'Authorization', "<script type='text/javascript' src='/extensions/SocialLogin/auth.js'></script>" );
 				$scripts = "$(function() {";
 				foreach ( $wgSocialLoginServices as $key => $name ) {
+					/** @var SocialLoginPlugin $plugin */
+					$plugin = str_replace( '.', '_', $key );
 					$s = explode( '.', $key );
 					$s = $s[0];
 					$scripts .= "
 						$('.$s').click(function() {
-							login('" . call_user_func( [ str_replace( ".", "_", $key ), "loginUrl" ] ) . "', function(code) {
+							login('" . $plugin::loginUrl() . "', function(code) {
 								tryLogin({service: '$key', code: code}, function(response) {
 									if (response == 'yes') document.location.href = '/';
 									else hacking();
@@ -269,7 +271,9 @@ class SocialLogin extends SpecialPage {
 				$profile = $wgRequest->getText( 'profile' );
 				$service = $wgRequest->getText( 'service' );
 				$code = $wgRequest->getText( 'code' );
-				$auth = call_user_func( [ str_replace( ".", "_", $service ), "login" ], $code );
+				/** @var SocialLoginPlugin $plugin */
+				$plugin = str_replace( '.', '_', $service );
+				$auth = $plugin::login( $code );
 				if ( !$auth ) {
 					return true;
 				}
@@ -306,7 +310,9 @@ class SocialLogin extends SpecialPage {
 				$email = $wgRequest->getText( 'email' );
 				$pass1 = $wgRequest->getText( 'pass' );
 				$pass2 = $wgRequest->getText( 'pass_confirm' );
-				$auth = call_user_func( [ str_replace( ".", "_", $service ), "check" ], $id, $access_token );
+				/** @var SocialLoginPlugin $plugin */
+				$plugin = str_replace( '.', '_', $service );
+				$auth = $plugin::check( $id, $access_token );
 				if ( !$auth ) {
 					$wgOut->addHTML( $this->msg( 'sl-hacking' )->escaped() );
 				} else {
@@ -371,7 +377,9 @@ class SocialLogin extends SpecialPage {
 				$id = $wgRequest->getText( 'id' );
 				$name = $wgContLang->ucfirst( $wgRequest->getText( 'name' ) );
 				$pass = $wgRequest->getText( 'pass' );
-				$auth = call_user_func( [ str_replace( ".", "_", $service ), "check" ], $id, $access_token );
+				/** @var SocialLoginPlugin $plugin */
+				$plugin = str_replace( '.', '_', $service );
+				$auth = $plugin::check( $id, $access_token );
 				if ( !$auth ) {
 					$wgOut->addHTML( $this->msg( 'sl-hacking' )->escaped() );
 				} else {
