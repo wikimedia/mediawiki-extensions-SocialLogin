@@ -19,26 +19,6 @@ interface SocialLoginPlugin {
 	public static function loginUrl();
 }
 
-/**
- * @param string $url
- * @param array|string|false $data
- * @return string|false
- */
-function SLgetContents( $url, $data = false ) {
-	$ch = curl_init();
-	curl_setopt( $ch, CURLOPT_URL, $url );
-	curl_setopt( $ch, CURLOPT_HEADER, 0 );
-	curl_setopt( $ch, CURLOPT_POST, $data ? 1 : 0 );
-	if ( $data ) {
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
-	}
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-	curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-	$output = curl_exec( $ch );
-	curl_close( $ch );
-	return $output;
-}
-
 class SocialLogin extends SpecialPage {
 	function __construct() {
 		global $wgHooks;

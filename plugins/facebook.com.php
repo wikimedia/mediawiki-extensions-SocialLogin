@@ -6,7 +6,7 @@ class facebook_com implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgFacebookSecret, $wgFacebookAppId;
 		$host = $_SERVER["SERVER_NAME"];
-		$r = SLgetContents( 'https://graph.facebook.com/oauth/access_token?redirect_uri=http://' .
+		$r = SocialLogin::getContents( 'https://graph.facebook.com/oauth/access_token?redirect_uri=http://' .
 			$host . '/Special:SocialLogin?service=facebook.com&client_id=' . $wgFacebookAppId .
 			'&client_secret=' . $wgFacebookSecret . '&code=' . $code );
 		parse_str( $r, $response );
@@ -14,7 +14,7 @@ class facebook_com implements SocialLoginPlugin {
 			return false;
 		}
 		$access_token = $response['access_token'];
-		$r = SLgetContents( "https://graph.facebook.com/me?fields=id,first_name,last_name,username,gender,birthday,email,picture&access_token=$access_token" );
+		$r = SocialLogin::getContents( "https://graph.facebook.com/me?fields=id,first_name,last_name,username,gender,birthday,email,picture&access_token=$access_token" );
 		$response = json_decode( $r );
 		$id = $response->id;
 		$e = explode( "@", $response->email );
@@ -36,7 +36,7 @@ class facebook_com implements SocialLoginPlugin {
 	 * @inheritDoc
 	 */
 	public static function check( $id, $access_token ) {
-		$r = SLgetContents( "https://graph.facebook.com/me?fields=id,first_name,last_name&access_token=$access_token" );
+		$r = SocialLogin::getContents( "https://graph.facebook.com/me?fields=id,first_name,last_name&access_token=$access_token" );
 		$response = json_decode( $r );
 		if ( !isset( $response->id ) || $response->id != $id ) {
 			return false;

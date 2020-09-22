@@ -6,7 +6,7 @@ class google_com implements SocialLoginPlugin {
 	public static function login( $code ) {
 		global $wgGoogleSecret, $wgGoogleAppId;
 		$host = $_SERVER["SERVER_NAME"];
-		$r = SLgetContents( "https://accounts.google.com/o/oauth2/token", [
+		$r = SocialLogin::getContents( "https://accounts.google.com/o/oauth2/token", [
 			"redirect_uri" => "http://$host/Special:SocialLogin?service=google.com",
 			"client_id" => $wgGoogleAppId,
 			"client_secret" => $wgGoogleSecret,
@@ -18,7 +18,7 @@ class google_com implements SocialLoginPlugin {
 			return false;
 		}
 		$access_token = $response->access_token;
-		$r = SLgetContents( "https://www.googleapis.com/oauth2/v1/userinfo?access_token=$access_token" );
+		$r = SocialLogin::getContents( "https://www.googleapis.com/oauth2/v1/userinfo?access_token=$access_token" );
 		$response = json_decode( $r );
 		$id = $response->id;
 		$e = explode( "@", $response->email );
@@ -40,7 +40,7 @@ class google_com implements SocialLoginPlugin {
 	 * @inheritDoc
 	 */
 	public static function check( $id, $access_token ) {
-		$r = SLgetContents( "https://www.googleapis.com/oauth2/v1/userinfo?access_token=$access_token" );
+		$r = SocialLogin::getContents( "https://www.googleapis.com/oauth2/v1/userinfo?access_token=$access_token" );
 		$response = json_decode( $r );
 		if ( !isset( $response->id ) || $response->id != $id ) {
 			return false;
