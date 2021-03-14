@@ -19,6 +19,8 @@ interface SocialLoginPlugin {
 	public static function loginUrl();
 }
 
+use MediaWiki\MediaWikiServices;
+
 class SocialLogin extends SpecialPage {
 	function __construct() {
 		global $wgHooks;
@@ -202,7 +204,7 @@ class SocialLogin extends SpecialPage {
 				$name = $wgContLang->ucfirst( $wgRequest->getText( 'name' ) );
 				$pass = $wgRequest->getText( 'pass' );
 				$error = "";
-				if ( !User::isValidUserName( $name ) ) {
+				if ( !MediaWikiServices::getInstance()->getUserNameUtils()->isValid( $name ) ) {
 					$error .= "<li>" . $this->msg( 'sl-invalid-name', $name )->escaped() . "</li>";
 				}
 				if ( !self::userExist( $name ) ) {
@@ -230,7 +232,7 @@ class SocialLogin extends SpecialPage {
 				$pass1 = $wgRequest->getText( 'pass' );
 				$pass2 = $wgRequest->getText( 'pass_confirm' );
 				$error = "";
-				if ( !User::isValidUserName( $name ) ) {
+				if ( !MediaWikiServices::getInstance()->getUserNameUtils()->isValid( $name ) ) {
 					$error .= "<li>" . $this->msg( 'sl-invalid-name', $name )->escaped() . "</li>";
 				}
 				if ( self::userExist( $name ) ) {
@@ -326,7 +328,7 @@ class SocialLogin extends SpecialPage {
 					if ( !$id ) {
 						$error .= "<li>" . $this->msg( 'sl-missing-param', 'id' )->escaped() . "</li>";
 					}
-					if ( !User::isValidUserName( $name ) ) {
+					if ( !MediaWikiServices::getInstance()->getUserNameUtils()->isValid( $name ) ) {
 						$error .= "<li>" . $this->msg( 'sl-invalid-name', $name )->escaped() . "</li>";
 					}
 					if ( self::userExist( $name ) ) {
@@ -393,7 +395,7 @@ class SocialLogin extends SpecialPage {
 					if ( !$id ) {
 						$error .= "<li>" . $this->msg( 'sl-missing-param', 'id' )->escaped() . "</li>";
 					}
-					if ( !User::isValidUserName( $name ) ) {
+					if ( !MediaWikiServices::getInstance()->getUserNameUtils()->isValid( $name ) ) {
 						$error .= "<li>" . $this->msg( 'sl-invalid-name', $name )->escaped() . "</li>";
 					}
 					if ( !self::userExist( $name ) ) {
