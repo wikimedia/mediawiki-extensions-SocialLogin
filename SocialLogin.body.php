@@ -156,7 +156,7 @@ class SocialLogin extends SpecialPage {
 					$wgOut->addHTML( "<td style='width: $w%'><div style='width: 95%' class='slbutton " . $n[0] . "'>$name</div></td>" );
 				}
 				$wgOut->addHTML( "</tr>" );
-				if ( $user->isLoggedIn() ) {
+				if ( $user->isRegistered() ) {
 					$wgOut->addHTML( "<tr>" );
 					$dbr = wfGetDB( DB_MASTER );
 					$res = $dbr->select( 'sociallogin', [ 'profile', 'full_name' ], [ 'user_id' => $user->getId() ], __METHOD__ );
@@ -196,7 +196,7 @@ class SocialLogin extends SpecialPage {
 				}
 				$scripts .= "});";
 				$wgOut->addHeadItem( 'Login scripts', "<script type='text/javascript'>$scripts</script>" );
-				if ( $wgSocialLoginAddForms && !$user->isLoggedIn() ) {
+				if ( $wgSocialLoginAddForms && !$user->isRegistered() ) {
 					$wgOut->addHTML( $this->msg( 'sl-login-register' )->escaped() );
 				}
 				break;
@@ -290,7 +290,7 @@ class SocialLogin extends SpecialPage {
 					Hooks::run( 'UserLoginComplete', [ &$user, $this ] );
 					$wgOut->addHTML( $this->msg( 'sl-login-success' )->escaped() );
 				} else {
-					if ( $user->isLoggedIn() ) {
+					if ( $user->isRegistered() ) {
 						$dbr = wfGetDB( DB_MASTER );
 						$res = $dbr->insert( 'sociallogin', [
 							"user_id" => $user->getId(),
@@ -425,7 +425,7 @@ class SocialLogin extends SpecialPage {
 				}
 				break;
 			case 'unlink':
-				if ( !$user->isLoggedIn() ) {
+				if ( !$user->isRegistered() ) {
 					exit( 'no' );
 				} else {
 					$profile = $wgRequest->getText( 'profile' );
