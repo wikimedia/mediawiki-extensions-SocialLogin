@@ -76,8 +76,7 @@ class SocialLogin extends SpecialPage {
 	 * @return string
 	 */
 	static function processName( $name ) {
-		global $wgContLang;
-		$name = $wgContLang->ucfirst( $name );
+		$name = MediaWikiServices::getInstance()->getContentLanguage()->ucfirst( $name );
 		$name = self::translit( $name );
 		$name = strtolower( $name );
 		$name = str_replace( " ", "_", $name );
@@ -141,10 +140,11 @@ class SocialLogin extends SpecialPage {
 	 * @return bool
 	 */
 	function onUserLoadAfterLoadFromSession( $user ) {
-		global $wgRequest, $wgOut, $wgContLang, $wgSocialLoginServices, $wgSocialLoginAddForms;
+		global $wgRequest, $wgOut, $wgSocialLoginServices, $wgSocialLoginAddForms;
 
 		$wgRequest->getSession()->persist();
 		$action = $wgRequest->getText( 'action', 'auth' );
+		$contentLanguage = MediaWikiServices::getInstance()->getContentLanguage();
 		switch ( $action ) {
 			case "auth":
 				$wgOut->addHTML( "<table style='width: 100%'><tr>" );
@@ -201,7 +201,7 @@ class SocialLogin extends SpecialPage {
 				}
 				break;
 			case "signin":
-				$name = $wgContLang->ucfirst( $wgRequest->getText( 'name' ) );
+				$name = $contentLanguage->ucfirst( $wgRequest->getText( 'name' ) );
 				$pass = $wgRequest->getText( 'pass' );
 				$error = "";
 				if ( !MediaWikiServices::getInstance()->getUserNameUtils()->isValid( $name ) ) {
@@ -226,7 +226,7 @@ class SocialLogin extends SpecialPage {
 				}
 				break;
 			case "signup":
-				$name = $wgContLang->ucfirst( $wgRequest->getText( 'name' ) );
+				$name = $contentLanguage->ucfirst( $wgRequest->getText( 'name' ) );
 				$realname = $wgRequest->getText( 'realname' );
 				$email = $wgRequest->getText( 'email' );
 				$pass1 = $wgRequest->getText( 'pass' );
@@ -307,7 +307,7 @@ class SocialLogin extends SpecialPage {
 				$access_token = $wgRequest->getText( 'access_token' );
 				$service = $wgRequest->getText( 'service' );
 				$id = $wgRequest->getText( 'id' );
-				$name = $wgContLang->ucfirst( $wgRequest->getText( 'name' ) );
+				$name = $contentLanguage->ucfirst( $wgRequest->getText( 'name' ) );
 				$realname = $wgRequest->getText( 'realname' );
 				$email = $wgRequest->getText( 'email' );
 				$pass1 = $wgRequest->getText( 'pass' );
@@ -377,7 +377,7 @@ class SocialLogin extends SpecialPage {
 				$access_token = $wgRequest->getText( 'access_token' );
 				$service = $wgRequest->getText( 'service' );
 				$id = $wgRequest->getText( 'id' );
-				$name = $wgContLang->ucfirst( $wgRequest->getText( 'name' ) );
+				$name = $contentLanguage->ucfirst( $wgRequest->getText( 'name' ) );
 				$pass = $wgRequest->getText( 'pass' );
 				/** @var SocialLoginPlugin $plugin */
 				$plugin = str_replace( '.', '_', $service );
