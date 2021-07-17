@@ -7,7 +7,6 @@
 	],
 	"rules": {
 		"vars-on-top": "warn",
-		"one-var": "warn",
 		"no-undef": "warn",
 		"no-unused-vars": "warn",
 		"no-jquery/no-each-util": "warn",
