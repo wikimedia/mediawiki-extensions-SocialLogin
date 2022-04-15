@@ -6,8 +6,13 @@
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
 		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
-		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix" />
+		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.allowedPrefix" />
+		<exclude name="MediaWiki.Usage.DeprecatedConstantUsage.DB_MASTER" />
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgContLang" />
+		<exclude name="MediaWiki.Usage.ExtendClassUsage.FunctionConfigUsage" />
+		<exclude name="MediaWiki.Usage.ExtendClassUsage.FunctionVarUsage" />
+		<exclude name="MediaWiki.VariableAnalysis.MisleadingGlobalNames.Misleading$wgGoogleAppId" />
+		<exclude name="MediaWiki.VariableAnalysis.MisleadingGlobalNames.Misleading$wgGoogleSecret" />
 		<exclude name="MediaWiki.VariableAnalysis.UnusedGlobalVariables.UnusedGlobal$wgRequest" />
 		<exclude name="MediaWiki.VariableAnalysis.UnusedGlobalVariables.UnusedGlobal$wgTwitterAppId" />
 		<exclude name="MediaWiki.VariableAnalysis.UnusedGlobalVariables.UnusedGlobal$wgTwitterSecret" />
