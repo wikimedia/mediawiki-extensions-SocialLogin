@@ -221,7 +221,7 @@ class SocialLogin extends SpecialPage {
 					$user->loadFromId();
 					$user->setCookies();
 					$user->saveSettings();
-					Hooks::run( 'UserLoginComplete', [ &$user, $this ] );
+					MediaWikiServices::getInstance()->getHookContainer()->run( 'UserLoginComplete', [ &$user, $this ] );
 					$wgOut->addHTML( $this->msg( 'sl-login-success' )->escaped() );
 				}
 				break;
@@ -265,7 +265,7 @@ class SocialLogin extends SpecialPage {
 					$user->loadFromId();
 					$user->setCookies();
 					$user->saveSettings();
-					Hooks::run( 'UserLoginComplete', [ &$user, $this ] );
+					MediaWikiServices::getInstance()->getHookContainer()->run( 'UserLoginComplete', [ &$user, $this ] );
 					$wgOut->addHTML( $this->msg( 'sl-login-success' )->escaped() );
 				}
 				break;
@@ -287,7 +287,7 @@ class SocialLogin extends SpecialPage {
 					$user->loadFromId();
 					$user->setCookies();
 					$user->saveSettings();
-					Hooks::run( 'UserLoginComplete', [ &$user, $this ] );
+					MediaWikiServices::getInstance()->getHookContainer()->run( 'UserLoginComplete', [ &$user, $this ] );
 					$wgOut->addHTML( $this->msg( 'sl-login-success' )->escaped() );
 				} else {
 					if ( $user->isRegistered() ) {
@@ -362,7 +362,7 @@ class SocialLogin extends SpecialPage {
 						$user->loadFromId();
 						$user->setCookies();
 						$user->saveSettings();
-						Hooks::run( 'UserLoginComplete', [ &$user, $this ] );
+						MediaWikiServices::getInstance()->getHookContainer()->run( 'UserLoginComplete', [ &$user, $this ] );
 						$dbr = wfGetDB( DB_MASTER );
 						$res = $dbr->insert( 'sociallogin', [
 							"user_id" => $newUser->getId(),
@@ -413,7 +413,7 @@ class SocialLogin extends SpecialPage {
 						$user->loadFromId();
 						$user->setCookies();
 						$user->saveSettings();
-						Hooks::run( 'UserLoginComplete', [ &$user, $this ] );
+						MediaWikiServices::getInstance()->getHookContainer()->run( 'UserLoginComplete', [ &$user, $this ] );
 						$dbr = wfGetDB( DB_MASTER );
 						$res = $dbr->insert( 'sociallogin', [
 							"user_id" => $newUser->getId(),
